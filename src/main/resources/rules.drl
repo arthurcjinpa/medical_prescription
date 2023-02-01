@@ -1,0 +1,64 @@
+package org.example;
+
+import java.util.List;
+import java.util.*
+import java.util.stream.Collectors;
+import arthurs_pet_med.med_prescription.dto.SpecialtyDto;
+import arthurs_pet_med.med_prescription.entity.drools.Specialty
+import arthurs_pet_med.med_prescription.entity.drools.Gastroenterologist
+import arthurs_pet_med.med_prescription.entity.drools.Ophthalmologist
+import arthurs_pet_med.med_prescription.entity.drools.Orthodontist
+
+global java.util.Set controlSet;
+global java.util.List usersSymptomList;
+global SpecialtyDto specialtyDto;
+global java.lang.String usersSymptom
+
+rule "OphthalmologistSpecialty"
+no-loop
+when
+    $op : Ophthalmologist()
+then
+    $op.getSymptoms().retainAll(usersSymptomList);
+end
+
+rule "OrthodontistSpecialty"
+no-loop
+when
+    $or : Orthodontist()
+then
+    $or.getSymptoms().retainAll(usersSymptomList);
+end
+
+rule "GastroenterologistSpecialty"
+when
+   $ga : Gastroenterologist()
+   then
+    $ga.getSymptoms().retainAll(usersSymptomList);
+end
+
+rule "CompareRightDoc"
+when
+    $op : Ophthalmologist()
+    $ga : Gastroenterologist()
+    $or : Orthodontist()
+    $docs : List()
+   then
+   List<Specialty> docs = new ArrayList<>(List.of($op, $ga, $or));
+
+    String doctorSpecialty = docs.stream()
+                 .collect(Collectors.toMap(
+                         Specialty::getSpecialty,
+                         d -> d.getSymptoms().stream()
+                                 .filter(usersSymptomList::contains)
+                                 .mapToInt(s -> 1)
+                                 .sum(),
+                         Math::max
+                 ))
+                 .entrySet().stream()
+                 .max(Map.Entry.comparingByValue())
+                 .map(Map.Entry::getKey)
+                 .orElse("");
+
+                specialtyDto.setSpecialty(doctorSpecialty);
+ end
