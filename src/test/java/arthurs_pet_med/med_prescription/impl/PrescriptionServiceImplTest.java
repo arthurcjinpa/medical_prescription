@@ -15,82 +15,85 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Transactional
 public class PrescriptionServiceImplTest extends BaseTest {
 
-    private PrescriptionUtil prescriptionUtil;
-    private DoctorUtil doctorUtil;
+  private PrescriptionUtil prescriptionUtil;
+  private DoctorUtil doctorUtil;
 
-    @Before
-    public void before() {
-        prescriptionUtil = new PrescriptionUtil();
-        doctorUtil = new DoctorUtil();
-    }
+  @Before
+  public void before() {
+    prescriptionUtil = new PrescriptionUtil();
+    doctorUtil = new DoctorUtil();
+  }
 
-    @Test
-    public void showAllPrescriptionsTest() {
-        // given
-        int repositorySize = prescriptionRepository.findAll().size();
+  @Test
+  public void showAllPrescriptionsTest() {
+    // given
+    int repositorySize = prescriptionRepository.findAll().size();
 
-        // when
-        int serviceSize = prescriptionService.showAllPrescriptions().size();
+    // when
+    int serviceSize = prescriptionService.showAllPrescriptions().size();
 
-        // then
-        assertEquals(repositorySize, serviceSize);
-    }
+    // then
+    assertEquals(repositorySize, serviceSize);
+  }
 
-    @Test
-    @Transactional
-    public void prescriptionConfirmationTest() {
-        //given
-        Doctor savedDoctor = doctorService.addDoctor(
-                doctorUtil.createDoctor(ORTHODONTIST)
-        );
+  @Test
+  @Transactional
+  public void prescriptionConfirmationTest() {
+    // given
+    Doctor savedDoctor = doctorService.addDoctor(doctorUtil.createDoctor(ORTHODONTIST));
 
-        PrescriptionConfirmationDto confirmationDto =
-                prescriptionUtil.createConfirmationDtoByDoctor(savedDoctor);
+    PrescriptionConfirmationDto confirmationDto =
+        prescriptionUtil.createConfirmationDtoByDoctor(savedDoctor);
 
-        //when
-        String response =
-                prescriptionService.prescriptionConfirmation(confirmationDto);
+    // when
+    String response = prescriptionService.prescriptionConfirmation(confirmationDto);
 
-        //then
-        assertEquals(response, "Thank you for your trust!\n" +
-                "We'll be eagerly awaiting your arrival at the clinic,\n" +
-                "ready to administer all the necessary check-ups and treatments!");
+    // then
+    assertEquals(
+        response,
+        "Thank you for your trust!\n"
+            + "We'll be eagerly awaiting your arrival at the clinic,\n"
+            + "ready to administer all the necessary check-ups and treatments!");
 
-        assertEquals(1, doctorService.findDoctorById(confirmationDto.getDoctorId())
-                .getPrescriptions().size());
+    assertEquals(
+        1, doctorService.findDoctorById(confirmationDto.getDoctorId()).getPrescriptions().size());
 
-        assertEquals(ORTHODONTIST.name(), doctorService.findDoctorById(confirmationDto.getDoctorId())
-                .getPrescriptions().get(0).getSpecialty());
-    }
+    assertEquals(
+        ORTHODONTIST.name(),
+        doctorService
+            .findDoctorById(confirmationDto.getDoctorId())
+            .getPrescriptions()
+            .get(0)
+            .getSpecialty());
+  }
 
-    @Test
-    public void findPrescriptionByIdTest() {
-        //given
-        Doctor savedDoctor = doctorService.addDoctor(
-                doctorUtil.createDoctor(ORTHODONTIST)
-        );
+  @Test
+  public void findPrescriptionByIdTest() {
+    // given
+    Doctor savedDoctor = doctorService.addDoctor(doctorUtil.createDoctor(ORTHODONTIST));
 
-        PrescriptionConfirmationDto confirmationDto =
-                prescriptionUtil.createConfirmationDtoByDoctor(savedDoctor);
+    PrescriptionConfirmationDto confirmationDto =
+        prescriptionUtil.createConfirmationDtoByDoctor(savedDoctor);
 
-        //when
-        String response =
-                prescriptionService.prescriptionConfirmation(confirmationDto);
+    // when
+    String response = prescriptionService.prescriptionConfirmation(confirmationDto);
 
-        //then
-        assertEquals(response, "Thank you for your trust!\n" +
-                "We'll be eagerly awaiting your arrival at the clinic,\n" +
-                "ready to administer all the necessary check-ups and treatments!");
+    // then
+    assertEquals(
+        response,
+        "Thank you for your trust!\n"
+            + "We'll be eagerly awaiting your arrival at the clinic,\n"
+            + "ready to administer all the necessary check-ups and treatments!");
 
-        assertEquals(1, doctorService.findDoctorById(confirmationDto.getDoctorId())
-                .getPrescriptions().size());
+    assertEquals(
+        1, doctorService.findDoctorById(confirmationDto.getDoctorId()).getPrescriptions().size());
 
-        assertEquals(ORTHODONTIST.name(), doctorService.findDoctorById(confirmationDto.getDoctorId())
-                .getPrescriptions().get(0).getSpecialty());
-    }
-
-
-
-
-
+    assertEquals(
+        ORTHODONTIST.name(),
+        doctorService
+            .findDoctorById(confirmationDto.getDoctorId())
+            .getPrescriptions()
+            .get(0)
+            .getSpecialty());
+  }
 }

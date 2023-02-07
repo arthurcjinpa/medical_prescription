@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SpecialtyPrescriptionDto {
-    private Specialty specialty;
-    private List<DoctorDto> availableDoctors;
-    private List<String> symptoms;
+  private Specialty specialty;
+  private List<DoctorDto> availableDoctors;
+  private List<String> symptoms;
 }

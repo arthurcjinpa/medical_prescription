@@ -7,7 +7,7 @@ import java.util.List;
 
 @Service
 public interface SymptomService {
-    List<String> getAllSymptoms();
+  List<String> getAllSymptoms();
 
-    void addSymptomsToSpecialty(Specialty specialty, List<String> symptoms);
+  void addSymptomsToSpecialty(Specialty specialty, List<String> symptoms);
 }

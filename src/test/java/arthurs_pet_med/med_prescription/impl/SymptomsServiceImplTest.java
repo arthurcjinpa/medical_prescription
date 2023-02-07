@@ -8,17 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SymptomsServiceImplTest extends BaseTest {
 
-    @Test
-    @Transactional
-    public void getAllSymptomsTest() {
-        // given
-        int repositorySize = prescriptionRepository.findAll().size();
+  @Test
+  @Transactional
+  public void getAllSymptomsTest() {
+    // given
+    int repositorySize = prescriptionRepository.findAll().size();
 
-        // when
-        int serviceSize = prescriptionService.showAllPrescriptions().size();
+    // when
+    int serviceSize = prescriptionService.showAllPrescriptions().size();
 
-        // then
-        assertEquals(repositorySize, serviceSize);
-    }
-
+    // then
+    assertEquals(repositorySize, serviceSize);
+  }
 }

@@ -10,6 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Specialty {
-    String specialty;
-    List<String> symptoms;
+  String specialty;
+  List<String> symptoms;
 }

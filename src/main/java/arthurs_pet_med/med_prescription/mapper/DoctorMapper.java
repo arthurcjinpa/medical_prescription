@@ -9,22 +9,24 @@ import org.mapstruct.NullValueCheckStrategy;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-@Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-        imports = ZonedDateTime.class)
+@Mapper(
+    componentModel = "spring",
+    nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
+    imports = ZonedDateTime.class)
 public interface DoctorMapper {
 
-    @Named("entityListToDoctorDtoList")
-    List<DoctorDto> entityListToDoctorDtoList(List<Doctor> doctors);
+  @Named("entityListToDoctorDtoList")
+  List<DoctorDto> entityListToDoctorDtoList(List<Doctor> doctors);
 
-    default DoctorDto entityListToDoctorDtoList(Doctor doctor) {
-        return DoctorDto.builder()
-                .doctorId(doctor.getId())
-                .firstName(doctor.getFirstName())
-                .lastName(doctor.getLastName())
-                .doctorId(doctor.getId())
-                .availableTime(doctor.getAvailableTime())
-                .price(doctor.getPrice())
-                .specialty(doctor.getSpecialty())
-                .build();
-    }
+  default DoctorDto entityListToDoctorDtoList(Doctor doctor) {
+    return DoctorDto.builder()
+        .doctorId(doctor.getId())
+        .firstName(doctor.getFirstName())
+        .lastName(doctor.getLastName())
+        .doctorId(doctor.getId())
+        .availableTime(doctor.getAvailableTime())
+        .price(doctor.getPrice())
+        .specialty(doctor.getSpecialty())
+        .build();
+  }
 }

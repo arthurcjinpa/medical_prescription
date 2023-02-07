@@ -7,6 +7,5 @@ import java.util.List;
 @Service
 public interface DroolsService {
 
-    String getSpecialty(List<String> usersSymptomList);
-
+  String getSpecialty(List<String> usersSymptomList);
 }

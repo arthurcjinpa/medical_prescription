@@ -10,25 +10,23 @@ import java.util.stream.Collectors;
 
 public class DateToListConverter implements AttributeConverter<List<ZonedDateTime>, String> {
 
-    @Override
-    public String convertToDatabaseColumn(List<ZonedDateTime> zonedDateTimes) {
-        if (CollectionUtils.isEmpty(zonedDateTimes)) {
-            return null;
-        } else {
-            return zonedDateTimes.stream()
-                    .map(ZonedDateTime::toString)
-                    .collect(Collectors.joining(","));
-        }
+  @Override
+  public String convertToDatabaseColumn(List<ZonedDateTime> zonedDateTimes) {
+    if (CollectionUtils.isEmpty(zonedDateTimes)) {
+      return null;
+    } else {
+      return zonedDateTimes.stream().map(ZonedDateTime::toString).collect(Collectors.joining(","));
     }
+  }
 
-    @Override
-    public List<ZonedDateTime> convertToEntityAttribute(String dbData) {
-        if (dbData == null) {
-            return null;
-        } else {
-            return Arrays.stream(dbData.split(","))
-                    .map(ZonedDateTime::parse)
-                    .collect(Collectors.toList());
-        }
+  @Override
+  public List<ZonedDateTime> convertToEntityAttribute(String dbData) {
+    if (dbData == null) {
+      return null;
+    } else {
+      return Arrays.stream(dbData.split(","))
+          .map(ZonedDateTime::parse)
+          .collect(Collectors.toList());
     }
+  }
 }

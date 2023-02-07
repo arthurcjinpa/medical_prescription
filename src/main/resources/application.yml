@@ -9,9 +9,9 @@ spring:
           defaultZone: http://localhost:8761/eureka/
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    password: your_password
-#    username: your_username
-#    url: your_url
+  #    password: your_password
+  #    username: your_username
+  #    url: your_url
   jpa:
     properties:
       hibernate:

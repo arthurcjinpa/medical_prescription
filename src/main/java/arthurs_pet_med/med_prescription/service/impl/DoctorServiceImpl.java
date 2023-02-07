@@ -18,39 +18,39 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DoctorServiceImpl implements DoctorService {
 
-    private final DoctorRepository doctorRepository;
-    private final DoctorMapper doctorMapper;
+  private final DoctorRepository doctorRepository;
+  private final DoctorMapper doctorMapper;
 
-    @Override
-    public Doctor findDoctorById(Long id) {
-        return doctorRepository
-                .findById(id)
-                .orElseThrow(
-                        () -> {
-                            throw new DoctorNotFoundException("Doctor with id " + id + " was not found.");
-                        });
-    }
+  @Override
+  public Doctor findDoctorById(Long id) {
+    return doctorRepository
+        .findById(id)
+        .orElseThrow(
+            () -> {
+              throw new DoctorNotFoundException("Doctor with id " + id + " was not found.");
+            });
+  }
 
-    @Override
-    public List<Doctor> findAllDoctors() {
-        return doctorRepository.findAll();
-    }
+  @Override
+  public List<Doctor> findAllDoctors() {
+    return doctorRepository.findAll();
+  }
 
-    @Override
-    public Doctor addDoctor(Doctor doctor) {
-        return doctorRepository.save(doctor);
-    }
+  @Override
+  public Doctor addDoctor(Doctor doctor) {
+    return doctorRepository.save(doctor);
+  }
 
-    @Override
-    public List<DoctorDto> findAvailableDoctorDtosBySpecialty(Specialty specialty) {
-        List<Doctor> doctors = findAvailableDoctorEntitiesBySpecialty(specialty);
-        if(CollectionUtils.isEmpty(doctors)) {
-            return new ArrayList<>();
-        }
-        return doctorMapper.entityListToDoctorDtoList(doctors);
+  @Override
+  public List<DoctorDto> findAvailableDoctorDtosBySpecialty(Specialty specialty) {
+    List<Doctor> doctors = findAvailableDoctorEntitiesBySpecialty(specialty);
+    if (CollectionUtils.isEmpty(doctors)) {
+      return new ArrayList<>();
     }
+    return doctorMapper.entityListToDoctorDtoList(doctors);
+  }
 
-    private List<Doctor> findAvailableDoctorEntitiesBySpecialty(Specialty specialty) {
-        return doctorRepository.findAllBySpecialtyAndAvailableTimeIsNotNull(specialty);
-    }
+  private List<Doctor> findAvailableDoctorEntitiesBySpecialty(Specialty specialty) {
+    return doctorRepository.findAllBySpecialtyAndAvailableTimeIsNotNull(specialty);
+  }
 }

@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
-    List<Doctor> findAllBySpecialtyAndAvailableTimeIsNotNull(Specialty specialty);
-
+  List<Doctor> findAllBySpecialtyAndAvailableTimeIsNotNull(Specialty specialty);
 }

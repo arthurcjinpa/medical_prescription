@@ -11,22 +11,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SpecialtyServiceImplTest extends BaseTest {
 
-    @Test
-    public void getSpecialtyBySymptomsTest() {
-        // given
-        List<String> symptomsForOphthalmologist = List.of("eye redness","glare from lights","headache");
-        List<String> symptomsForGastroenterologist = List.of("diarrhea","heartburn","headache","vomiting","nausea");
-        List<String> symptomsForTherapist = List.of("headache");
+  @Test
+  public void getSpecialtyBySymptomsTest() {
+    // given
+    List<String> symptomsForOphthalmologist =
+        List.of("eye redness", "glare from lights", "headache");
+    List<String> symptomsForGastroenterologist =
+        List.of("diarrhea", "heartburn", "headache", "vomiting", "nausea");
+    List<String> symptomsForTherapist = List.of("headache");
 
-        // when
-        Specialty specialtyOphthalmologistBySymptoms = specialtyService.getSpecialtyBySymptoms(symptomsForOphthalmologist);
-        Specialty specialtyGastroenterologistBySymptoms = specialtyService.getSpecialtyBySymptoms(symptomsForGastroenterologist);
-        Specialty specialtyTherapistBySymptoms = specialtyService.getSpecialtyBySymptoms(symptomsForTherapist);
+    // when
+    Specialty specialtyOphthalmologistBySymptoms =
+        specialtyService.getSpecialtyBySymptoms(symptomsForOphthalmologist);
+    Specialty specialtyGastroenterologistBySymptoms =
+        specialtyService.getSpecialtyBySymptoms(symptomsForGastroenterologist);
+    Specialty specialtyTherapistBySymptoms =
+        specialtyService.getSpecialtyBySymptoms(symptomsForTherapist);
 
-        // then
-        assertEquals(OPHTHALMOLOGIST, specialtyOphthalmologistBySymptoms);
-        assertEquals(GASTROENTEROLOGIST, specialtyGastroenterologistBySymptoms);
-        assertEquals(THERAPIST, specialtyTherapistBySymptoms);
-    }
-
+    // then
+    assertEquals(OPHTHALMOLOGIST, specialtyOphthalmologistBySymptoms);
+    assertEquals(GASTROENTEROLOGIST, specialtyGastroenterologistBySymptoms);
+    assertEquals(THERAPIST, specialtyTherapistBySymptoms);
+  }
 }

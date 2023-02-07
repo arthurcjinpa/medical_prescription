@@ -19,24 +19,22 @@ import static arthurs_pet_med.med_prescription.enums.Specialty.THERAPIST;
 @RequiredArgsConstructor
 public class SpecialtyServiceImpl implements SpecialtyService {
 
-    private final DroolsService droolsService;
-    private final DoctorService doctorService;
-    private final PrescriptionMapper prescriptionMapper;
+  private final DroolsService droolsService;
+  private final DoctorService doctorService;
+  private final PrescriptionMapper prescriptionMapper;
 
-    @Override
-    public Specialty getSpecialtyBySymptoms(List<String> symptoms) {
-        if(!CollectionUtils.isEmpty(symptoms)){
-            return Specialty.findByName(
-                    droolsService.getSpecialty(symptoms)
-            );
-        }
-        return THERAPIST;
+  @Override
+  public Specialty getSpecialtyBySymptoms(List<String> symptoms) {
+    if (!CollectionUtils.isEmpty(symptoms)) {
+      return Specialty.findByName(droolsService.getSpecialty(symptoms));
     }
+    return THERAPIST;
+  }
 
-    @Override
-    public SpecialtyPrescriptionDto getSpecialtyPrescriptionDto(List<String> symptoms) {
-        Specialty specialty = getSpecialtyBySymptoms(symptoms);
-        List<DoctorDto> doctors = doctorService.findAvailableDoctorDtosBySpecialty(specialty);
-        return prescriptionMapper.doctorsAndSpecialtyAndSymptomsToDto(doctors, specialty, symptoms);
-    }
+  @Override
+  public SpecialtyPrescriptionDto getSpecialtyPrescriptionDto(List<String> symptoms) {
+    Specialty specialty = getSpecialtyBySymptoms(symptoms);
+    List<DoctorDto> doctors = doctorService.findAvailableDoctorDtosBySpecialty(specialty);
+    return prescriptionMapper.doctorsAndSpecialtyAndSymptomsToDto(doctors, specialty, symptoms);
+  }
 }

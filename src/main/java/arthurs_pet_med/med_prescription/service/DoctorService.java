@@ -10,11 +10,11 @@ import java.util.List;
 @Service
 public interface DoctorService {
 
-    Doctor findDoctorById(Long id);
+  Doctor findDoctorById(Long id);
 
-    List<Doctor> findAllDoctors();
+  List<Doctor> findAllDoctors();
 
-    Doctor addDoctor(Doctor doctor);
+  Doctor addDoctor(Doctor doctor);
 
-    List<DoctorDto> findAvailableDoctorDtosBySpecialty(Specialty specialty);
+  List<DoctorDto> findAvailableDoctorDtosBySpecialty(Specialty specialty);
 }

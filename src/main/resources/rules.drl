@@ -32,7 +32,7 @@ rule "GastroenterologistSpecialty"
 when
    $ga : Gastroenterologist()
    then
-    $ga.getSymptoms().retainAll(usersSymptomList);
+   $ga.getSymptoms().retainAll(usersSymptomList);
 end
 
 rule "CompareRightDoc"
@@ -43,19 +43,20 @@ when
     $docs : List()
    then
    List<Specialty> docs = new ArrayList<>(List.of($op, $ga, $or));
+
    int maxValue = docs.stream()
-            .map(Specialty::getSymptoms)
-            .mapToInt(List::size)
-            .max().orElse(0);
+             .map(Specialty::getSymptoms)
+             .mapToInt(List::size)
+             .max().orElse(0);
 
     String doctorSpecialty = docs.stream()
-                 .filter(doc -> doc.getSymptoms().size() == maxValue)
-                 .map(Specialty::getSpecialty)
-                 .findFirst().orElse("Therapist");
+             .filter(doc -> doc.getSymptoms().size() == maxValue)
+             .map(Specialty::getSpecialty)
+             .findFirst().orElse("Therapist");
 
     Long numberOfIdenticalSymptoms = docs.stream()
-                  .filter(doc -> doc.getSymptoms().size() == maxValue)
-                  .count();
+             .filter(doc -> doc.getSymptoms().size() == maxValue)
+             .count();
 
    if(numberOfIdenticalSymptoms > 1) {
         specialtyDto.setSpecialty("Therapist");

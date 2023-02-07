@@ -9,9 +9,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PrescriptionDto {
-    private Long prescriptionId;
-    private Specialty specialty;
-    private Long userId;
-    private Long doctorId;
-    private Long price;
+  private Long prescriptionId;
+  private Specialty specialty;
+  private Long userId;
+  private Long doctorId;
+  private Long price;
 }

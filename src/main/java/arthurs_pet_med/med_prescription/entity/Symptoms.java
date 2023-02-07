@@ -15,19 +15,19 @@ import java.util.List;
 @NoArgsConstructor
 public class Symptoms {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(name = "SPECIALTY")
-    private String specialty;
+  @Column(name = "SPECIALTY")
+  private String specialty;
 
-    @Column(name = "SYMPTOMS")
-    @Convert(converter = StringToListConverter.class)
-    private List<String> symptoms;
+  @Column(name = "SYMPTOMS")
+  @Convert(converter = StringToListConverter.class)
+  private List<String> symptoms;
 
-    public Symptoms(String specialty, List<String> symptoms) {
-        this.specialty = specialty;
-        this.symptoms = symptoms;
-    }
+  public Symptoms(String specialty, List<String> symptoms) {
+    this.specialty = specialty;
+    this.symptoms = symptoms;
+  }
 }

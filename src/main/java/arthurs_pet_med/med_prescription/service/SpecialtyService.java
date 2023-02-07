@@ -9,8 +9,7 @@ import java.util.List;
 @Service
 public interface SpecialtyService {
 
-    Specialty getSpecialtyBySymptoms(List<String> symptoms);
+  Specialty getSpecialtyBySymptoms(List<String> symptoms);
 
-    SpecialtyPrescriptionDto getSpecialtyPrescriptionDto(List<String> symptoms);
-
+  SpecialtyPrescriptionDto getSpecialtyPrescriptionDto(List<String> symptoms);
 }

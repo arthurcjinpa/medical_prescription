@@ -16,16 +16,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @Ignore
 public class BaseTest {
-    @Autowired
-    protected PrescriptionService prescriptionService;
-    @Autowired
-    protected PrescriptionRepository prescriptionRepository;
-    @Autowired
-    protected SymptomsRepository symptomsRepository;
-    @Autowired
-    protected SymptomService symptomService;
-    @Autowired
-    protected SpecialtyService specialtyService;
-    @Autowired
-    protected DoctorService doctorService;
+  @Autowired protected PrescriptionService prescriptionService;
+  @Autowired protected PrescriptionRepository prescriptionRepository;
+  @Autowired protected SymptomsRepository symptomsRepository;
+  @Autowired protected SymptomService symptomService;
+  @Autowired protected SpecialtyService specialtyService;
+  @Autowired protected DoctorService doctorService;
 }

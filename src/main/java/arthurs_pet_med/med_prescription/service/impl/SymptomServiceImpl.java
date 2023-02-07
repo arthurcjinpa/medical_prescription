@@ -14,20 +14,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SymptomServiceImpl implements SymptomService {
 
-    private final SymptomsRepository symptomsRepository;
+  private final SymptomsRepository symptomsRepository;
 
-    @Override
-    public List<String> getAllSymptoms() {
-        return symptomsRepository.findAll().stream()
-                .map(Symptoms::getSymptoms)
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
-    }
+  @Override
+  public List<String> getAllSymptoms() {
+    return symptomsRepository.findAll().stream()
+        .map(Symptoms::getSymptoms)
+        .flatMap(List::stream)
+        .collect(Collectors.toList());
+  }
 
-    @Override
-    public void addSymptomsToSpecialty(Specialty specialty, List<String> symptoms) {
-        Symptoms symptomsBySpecialty = symptomsRepository.findBySpecialty(specialty.name());
-        symptomsBySpecialty.getSymptoms().addAll(symptoms);
-        symptomsRepository.save(symptomsBySpecialty);
-    }
+  @Override
+  public void addSymptomsToSpecialty(Specialty specialty, List<String> symptoms) {
+    Symptoms symptomsBySpecialty = symptomsRepository.findBySpecialty(specialty.name());
+    symptomsBySpecialty.getSymptoms().addAll(symptoms);
+    symptomsRepository.save(symptomsBySpecialty);
+  }
 }

@@ -14,19 +14,23 @@ import org.mapstruct.NullValueCheckStrategy;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-@Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-        imports = ZonedDateTime.class, uses = DoctorMapper.class)
+@Mapper(
+    componentModel = "spring",
+    nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
+    imports = ZonedDateTime.class,
+    uses = DoctorMapper.class)
 public interface PrescriptionMapper {
 
-    @Mapping(target = "prescriptionId", source = "id")
-    @Mapping(target = "doctorId", source = "prescription.doctor.id")
-    @Mapping(target = "price", source = "prescription.doctor.price")
-    PrescriptionDto entityToPrescriptionDto(Prescription prescription);
+  @Mapping(target = "prescriptionId", source = "id")
+  @Mapping(target = "doctorId", source = "prescription.doctor.id")
+  @Mapping(target = "price", source = "prescription.doctor.price")
+  PrescriptionDto entityToPrescriptionDto(Prescription prescription);
 
-    SpecialtyPrescriptionDto doctorsAndSpecialtyAndSymptomsToDto(List<DoctorDto> availableDoctors,
-                                                                 Specialty specialty, List<String> symptoms);
+  SpecialtyPrescriptionDto doctorsAndSpecialtyAndSymptomsToDto(
+      List<DoctorDto> availableDoctors, Specialty specialty, List<String> symptoms);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "specialty", source = "confirmationDto.specialty")
-    Prescription confirmationDtoAndDoctorToEntity(PrescriptionConfirmationDto confirmationDto, Doctor doctor);
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "specialty", source = "confirmationDto.specialty")
+  Prescription confirmationDtoAndDoctorToEntity(
+      PrescriptionConfirmationDto confirmationDto, Doctor doctor);
 }

@@ -23,64 +23,65 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PrescriptionServiceImpl implements PrescriptionService {
 
-    private final PrescriptionRepository prescriptionRepository;
-    private final DoctorRepository doctorRepository;
-    private final DoctorService doctorService;
-    private final PrescriptionMapper prescriptionMapper;
+  private final PrescriptionRepository prescriptionRepository;
+  private final DoctorRepository doctorRepository;
+  private final DoctorService doctorService;
+  private final PrescriptionMapper prescriptionMapper;
 
-    @Override
-    public List<PrescriptionDto> showAllPrescriptions() {
-        return prescriptionRepository.findAll().stream()
-                .map(prescriptionMapper::entityToPrescriptionDto)
-                    .collect(Collectors.toList());
-    }
+  @Override
+  public List<PrescriptionDto> showAllPrescriptions() {
+    return prescriptionRepository.findAll().stream()
+        .map(prescriptionMapper::entityToPrescriptionDto)
+        .collect(Collectors.toList());
+  }
 
-    @Override
-    public void deleteAllPrescriptions() {
-        prescriptionRepository.deleteAll();
-    }
+  @Override
+  public void deleteAllPrescriptions() {
+    prescriptionRepository.deleteAll();
+  }
 
-    @Override
-    public Prescription findPrescriptionById(Long id) {
-        return prescriptionRepository
-                .findById(id)
-                .orElseThrow(
-                        () -> {
-                            throw new PrescriptionNotFoundException("Prescription with id " + id + " not found.");
-                        });
-    }
+  @Override
+  public Prescription findPrescriptionById(Long id) {
+    return prescriptionRepository
+        .findById(id)
+        .orElseThrow(
+            () -> {
+              throw new PrescriptionNotFoundException("Prescription with id " + id + " not found.");
+            });
+  }
 
-    @Override
-    public Prescription addPrescription(Prescription prescription) {
-        return prescriptionRepository.save(prescription);
-    }
+  @Override
+  public Prescription addPrescription(Prescription prescription) {
+    return prescriptionRepository.save(prescription);
+  }
 
-    @Override
-    @Transactional
-    public String prescriptionConfirmation(PrescriptionConfirmationDto confirmationDto) {
+  @Override
+  @Transactional
+  public String prescriptionConfirmation(PrescriptionConfirmationDto confirmationDto) {
 
-        Doctor chosenDoctor = doctorService.findDoctorById(confirmationDto.getDoctorId());
+    Doctor chosenDoctor = doctorService.findDoctorById(confirmationDto.getDoctorId());
 
-        Prescription prescription = prescriptionMapper.confirmationDtoAndDoctorToEntity(confirmationDto, chosenDoctor);
+    Prescription prescription =
+        prescriptionMapper.confirmationDtoAndDoctorToEntity(confirmationDto, chosenDoctor);
 
-            ZonedDateTime chosenDate = chosenDoctor.getAvailableTime().stream()
-                    .filter(availableTime -> availableTime.isEqual(confirmationDto.getChosenTime()))
-                    .findFirst()
-                    .orElseThrow(
-                            () -> {
-                                throw new TimeIsUnavailableException(
-                                        "Time - " + chosenDoctor.getAvailableTime() + " already taken."
-                                );
-                            });
+    ZonedDateTime chosenDate =
+        chosenDoctor.getAvailableTime().stream()
+            .filter(availableTime -> availableTime.isEqual(confirmationDto.getChosenTime()))
+            .findFirst()
+            .orElseThrow(
+                () -> {
+                  throw new TimeIsUnavailableException(
+                      "Time - " + chosenDoctor.getAvailableTime() + " already taken.");
+                });
 
-            chosenDoctor.getPrescriptions().add(prescription);
-            chosenDoctor.getAvailableTime().remove(chosenDate);
-            doctorRepository.save(chosenDoctor);
+    chosenDoctor.getPrescriptions().add(prescription);
+    chosenDoctor.getAvailableTime().remove(chosenDate);
+    doctorRepository.save(chosenDoctor);
 
-            addPrescription(prescription);
+    addPrescription(prescription);
 
-            return "Thank you for your trust!\n" +
-                    "We'll be eagerly awaiting your arrival at the clinic,\n" +
-                    "ready to administer all the necessary check-ups and treatments!";
-    }
+    return "Thank you for your trust!\n"
+        + "We'll be eagerly awaiting your arrival at the clinic,\n"
+        + "ready to administer all the necessary check-ups and treatments!";
+  }
 }

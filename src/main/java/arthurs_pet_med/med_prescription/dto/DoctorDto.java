@@ -12,10 +12,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DoctorDto {
-    private Long doctorId;
-    private Specialty specialty;
-    private String firstName;
-    private String lastName;
-    private Long price;
-    private List<ZonedDateTime> availableTime;
+  private Long doctorId;
+  private Specialty specialty;
+  private String firstName;
+  private String lastName;
+  private Long price;
+  private List<ZonedDateTime> availableTime;
 }

@@ -1,6 +1,9 @@
 package arthurs_pet_med.med_prescription.entity.drools;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -9,10 +12,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Ophthalmologist extends Specialty {
-    String specialty = "Ophthalmologist";
-    List<String> symptoms;
+  String specialty = "Ophthalmologist";
+  List<String> symptoms;
 
-    public Ophthalmologist(List<String> symptoms) {
-        this.symptoms = symptoms;
-    }
+  public Ophthalmologist(List<String> symptoms) {
+    this.symptoms = symptoms;
+  }
 }

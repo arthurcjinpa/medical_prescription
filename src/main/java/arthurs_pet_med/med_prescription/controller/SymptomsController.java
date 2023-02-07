@@ -13,10 +13,10 @@ import java.util.List;
 @RequestMapping("/symptoms")
 public class SymptomsController {
 
-    private final SymptomService symptomService;
+  private final SymptomService symptomService;
 
-    @GetMapping("/list")
-    public List<String> getAllSymptoms() {
-        return symptomService.getAllSymptoms();
-    }
+  @GetMapping("/list")
+  public List<String> getAllSymptoms() {
+    return symptomService.getAllSymptoms();
+  }
 }

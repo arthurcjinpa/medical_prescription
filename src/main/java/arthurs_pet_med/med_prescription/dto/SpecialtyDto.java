@@ -8,5 +8,5 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SpecialtyDto {
-    private String specialty;
+  private String specialty;
 }

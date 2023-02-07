@@ -9,13 +9,13 @@ import java.util.List;
 
 @Service
 public interface PrescriptionService {
-    List<PrescriptionDto> showAllPrescriptions();
+  List<PrescriptionDto> showAllPrescriptions();
 
-    void deleteAllPrescriptions();
+  void deleteAllPrescriptions();
 
-    Prescription findPrescriptionById(Long id);
+  Prescription findPrescriptionById(Long id);
 
-    Prescription addPrescription(Prescription prescription);
+  Prescription addPrescription(Prescription prescription);
 
-    String prescriptionConfirmation(PrescriptionConfirmationDto confirmationDto);
+  String prescriptionConfirmation(PrescriptionConfirmationDto confirmationDto);
 }

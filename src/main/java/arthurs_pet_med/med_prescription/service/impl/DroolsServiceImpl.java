@@ -22,46 +22,44 @@ import static arthurs_pet_med.med_prescription.enums.Specialty.*;
 @RequiredArgsConstructor
 public class DroolsServiceImpl implements DroolsService {
 
-    private final SymptomsRepository symptomsRepository;
+  private final SymptomsRepository symptomsRepository;
 
-    @Override
-    public String getSpecialty(List<String> usersSymptomList) {
+  @Override
+  public String getSpecialty(List<String> usersSymptomList) {
 
-        KieServices kieServices = KieServices.Factory.get();
-        KieContainer kieContainer = kieServices.getKieClasspathContainer();
-        KieSession kieSession = kieContainer.newKieSession();
+    KieServices kieServices = KieServices.Factory.get();
+    KieContainer kieContainer = kieServices.getKieClasspathContainer();
+    KieSession kieSession = kieContainer.newKieSession();
 
-        List<String>symptomsForOphthalmologist = new ArrayList<>(
-                symptomsRepository.findBySpecialty(OPHTHALMOLOGIST.name()).getSymptoms()
-        );
+    List<String> symptomsForOphthalmologist =
+        new ArrayList<>(symptomsRepository.findBySpecialty(OPHTHALMOLOGIST.name()).getSymptoms());
 
-        List<String>symptomsForGastroenterologist = new ArrayList<>(
-                symptomsRepository.findBySpecialty(GASTROENTEROLOGIST.name()).getSymptoms()
-                );
+    List<String> symptomsForGastroenterologist =
+        new ArrayList<>(
+            symptomsRepository.findBySpecialty(GASTROENTEROLOGIST.name()).getSymptoms());
 
-        List<String>symptomsForOrthodontist = new ArrayList<>(
-                symptomsRepository.findBySpecialty(ORTHODONTIST.name()).getSymptoms()
-        );
+    List<String> symptomsForOrthodontist =
+        new ArrayList<>(symptomsRepository.findBySpecialty(ORTHODONTIST.name()).getSymptoms());
 
-        SpecialtyDto specialtyDto = new SpecialtyDto();
+    SpecialtyDto specialtyDto = new SpecialtyDto();
 
-        Specialty ophthalmologist = new Ophthalmologist(symptomsForOphthalmologist);
-        Specialty gastroenterologist = new Gastroenterologist(symptomsForGastroenterologist);
-        Specialty orthodontist = new Orthodontist(symptomsForOrthodontist);
+    Specialty ophthalmologist = new Ophthalmologist(symptomsForOphthalmologist);
+    Specialty gastroenterologist = new Gastroenterologist(symptomsForGastroenterologist);
+    Specialty orthodontist = new Orthodontist(symptomsForOrthodontist);
 
-        kieSession.insert(ophthalmologist);
-        kieSession.insert(gastroenterologist);
-        kieSession.insert(orthodontist);
+    kieSession.insert(ophthalmologist);
+    kieSession.insert(gastroenterologist);
+    kieSession.insert(orthodontist);
 
-        kieSession.insert(usersSymptomList);
+    kieSession.insert(usersSymptomList);
 
-        kieSession.setGlobal("usersSymptomList", usersSymptomList);
-        kieSession.setGlobal("specialtyDto", specialtyDto);
+    kieSession.setGlobal("usersSymptomList", usersSymptomList);
+    kieSession.setGlobal("specialtyDto", specialtyDto);
 
-        kieSession.fireAllRules();
+    kieSession.fireAllRules();
 
-        kieSession.dispose();
+    kieSession.dispose();
 
-        return specialtyDto.getSpecialty();
-    }
+    return specialtyDto.getSpecialty();
+  }
 }
