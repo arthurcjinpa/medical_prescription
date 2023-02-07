@@ -11,11 +11,11 @@ import java.util.List;
 public interface PrescriptionService {
     List<PrescriptionDto> showAllPrescriptions();
 
+    void deleteAllPrescriptions();
+
     Prescription findPrescriptionById(Long id);
 
     Prescription addPrescription(Prescription prescription);
-
-    PrescriptionDto issuePrescription(List<String> symptoms);
 
     String prescriptionConfirmation(PrescriptionConfirmationDto confirmationDto);
 }

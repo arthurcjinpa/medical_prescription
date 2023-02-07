@@ -19,8 +19,8 @@ services:
       timeout: 10s
       retries: 3
     depends_on:
-      db: #поменять
-        condition: service_completed_successfully
+      db:
+        condition: service_completed_successfully #change
   db:
     image: mysql
     restart: always

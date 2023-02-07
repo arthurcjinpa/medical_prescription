@@ -15,7 +15,6 @@ global SpecialtyDto specialtyDto;
 global java.lang.String usersSymptom
 
 rule "OphthalmologistSpecialty"
-no-loop
 when
     $op : Ophthalmologist()
 then
@@ -23,7 +22,6 @@ then
 end
 
 rule "OrthodontistSpecialty"
-no-loop
 when
     $or : Orthodontist()
 then
@@ -45,20 +43,23 @@ when
     $docs : List()
    then
    List<Specialty> docs = new ArrayList<>(List.of($op, $ga, $or));
+   int maxValue = docs.stream()
+            .map(Specialty::getSymptoms)
+            .mapToInt(List::size)
+            .max().orElse(0);
 
     String doctorSpecialty = docs.stream()
-                 .collect(Collectors.toMap(
-                         Specialty::getSpecialty,
-                         d -> d.getSymptoms().stream()
-                                 .filter(usersSymptomList::contains)
-                                 .mapToInt(s -> 1)
-                                 .sum(),
-                         Math::max
-                 ))
-                 .entrySet().stream()
-                 .max(Map.Entry.comparingByValue())
-                 .map(Map.Entry::getKey)
-                 .orElse("");
+                 .filter(doc -> doc.getSymptoms().size() == maxValue)
+                 .map(Specialty::getSpecialty)
+                 .findFirst().orElse("Therapist");
 
-                specialtyDto.setSpecialty(doctorSpecialty);
- end
+    Long numberOfIdenticalSymptoms = docs.stream()
+                  .filter(doc -> doc.getSymptoms().size() == maxValue)
+                  .count();
+
+   if(numberOfIdenticalSymptoms > 1) {
+        specialtyDto.setSpecialty("Therapist");
+   } else {
+        specialtyDto.setSpecialty(doctorSpecialty);
+   }
+end

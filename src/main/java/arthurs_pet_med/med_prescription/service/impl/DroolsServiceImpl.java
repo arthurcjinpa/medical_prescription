@@ -61,7 +61,6 @@ public class DroolsServiceImpl implements DroolsService {
         kieSession.fireAllRules();
 
         kieSession.dispose();
-        System.out.println(specialtyDto.getSpecialty());
 
         return specialtyDto.getSpecialty();
     }

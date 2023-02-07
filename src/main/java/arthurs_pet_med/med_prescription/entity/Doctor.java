@@ -47,11 +47,7 @@ public class Doctor {
     @Convert(converter = DateToListConverter.class)
     private List<ZonedDateTime> availableTime;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "PRESCRIPTION_DOCTOR",
-            joinColumns = @JoinColumn(name = "DOCTOR_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PRESCRIPTION_ID"))
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Prescription> prescriptions;
 
     public Doctor(Long id, Specialty specialty, String firstName, String lastName, int experience, Sex sex, Long price, String email, List<ZonedDateTime> availableTime) {

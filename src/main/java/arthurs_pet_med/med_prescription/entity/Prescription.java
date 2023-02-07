@@ -1,9 +1,9 @@
 package arthurs_pet_med.med_prescription.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table
@@ -18,11 +18,14 @@ public class Prescription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "PRESCRIPTION_DOCTOR",
-            joinColumns = @JoinColumn(name = "PRESCRIPTION_ID"),
-            inverseJoinColumns = @JoinColumn(name = "DOCTOR_ID"))
-    private List<Doctor> doctors;
+    @Column(name = "USER_ID")
+    private Long userId;
 
+    @Column(name = "SPECIALTY")
+    private String specialty;
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DOCTOR_ID")
+    private Doctor doctor;
 }
