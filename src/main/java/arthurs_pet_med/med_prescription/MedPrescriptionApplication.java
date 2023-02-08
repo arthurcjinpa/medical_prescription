@@ -71,13 +71,13 @@ public class MedPrescriptionApplication {
       );
 
       symptomsRepository.save(
-          new Symptoms(1L, "GASTROENTEROLOGIST", List.of("diarrhea,heartburn,headache,vomiting,nausea")));
+          new Symptoms(1L, "GASTROENTEROLOGIST", List.of("diarrhea" ,"heartburn" ,"headache" ,"vomiting" ,"nausea")));
 
       symptomsRepository.save(
-          new Symptoms(2L, "ORTHODONTIST", List.of("jaw pain,tooth decay,headache,crowded teeth")));
+          new Symptoms(2L, "ORTHODONTIST", List.of("jaw pain", "tooth decay" ,"headache" , "crowded teeth")));
 
       symptomsRepository.save(
-          new Symptoms(3L, "OPHTHALMOLOGIST", List.of("eye redness,glare from lights,headache,sensitivity to light,weird sensation in eyes")));
+          new Symptoms(3L, "OPHTHALMOLOGIST", List.of("eye redness", "glare from lights", "headache", "sensitivity to light" , "weird sensation in eyes")));
 
       symptomsRepository.save(new Symptoms(4L, "THERAPIST", List.of("not sure")));
     };
