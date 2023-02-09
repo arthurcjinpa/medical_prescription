@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    restart: on-failure #unless-stopped
+    restart: on-failure
     build: .
     ports:
       - "8090:8090"
@@ -20,7 +20,7 @@ services:
       retries: 3
     depends_on:
       db:
-        condition: service_completed_successfully #change
+        condition: service_healthy
   db:
     image: mysql
     restart: always
