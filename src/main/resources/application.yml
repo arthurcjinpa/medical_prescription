@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: med-prescription
+  cloud:
+    discovery:
+      enabled: true
+      client:
+        service-url:
+          defaultZone: http://localhost:8761/eureka/
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    password: your_password
+  #    username: your_username
+  #    url: your_url
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+        hbm2ddl:
+          auto: update
+        show_sql: true
+    show-sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+server:
+  servlet:
+    context-path: /prescription
+  port: 8090
